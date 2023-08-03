@@ -61,8 +61,12 @@ export default function Chart() {
           className="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
           onClick={() => {
             if (end !== 0 && end - start > 0) {
+               
+              
+               console.log((((minimumScore - start) * 100) / (end - start))*0.8);
+
               setStartpercent(
-                ((minimumScore - start) * 100) / (end - start) + 10
+                (((minimumScore - start) * 100) / (end - start))*0.8 + 10
               );
 
               setPercent(
@@ -71,6 +75,10 @@ export default function Chart() {
               if (((actualScore - minimumScore) * 100) / (end - start)<3){
                 setPercent(3);
               }
+              if(actualScore>end){
+                setPercent((((end - minimumScore) * 100) / (end - start)) * 0.8)
+              }
+              
               if(minimumScore === actualScore){
                 setSame(true);
               }
@@ -94,7 +102,7 @@ export default function Chart() {
             className="bg-white h-[30px]"
             style={{ width: `${startpercent}%` }}
           >
-            {" "}
+            {""}
           </div>
           <div
             className="bg-white h-[30px] flex justify-between"
