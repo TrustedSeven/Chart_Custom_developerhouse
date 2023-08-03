@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import IMG from "../assests/arrow.jpg";
 import Label from "../assests/label.jpg";
 import Icon from "../assests/icon.jpg";
@@ -11,6 +11,8 @@ export default function Chart() {
   const [percent, setPercent] = useState(0);
   const [startpercent, setStartpercent] = useState(0);
   const [over, setOver] = useState(false);
+  const [same, setSame] = useState(false);
+  
 
   return (
     <div className="m-20">
@@ -66,6 +68,15 @@ export default function Chart() {
               setPercent(
                 (((actualScore - minimumScore) * 100) / (end - start)) * 0.8
               );
+              if (((actualScore - minimumScore) * 100) / (end - start)<3){
+                setPercent(3);
+              }
+              if(minimumScore === actualScore){
+                setSame(true);
+              }
+              else{
+                setSame(false);
+              }
               if (actualScore > end) {
                 setOver(true);
               } else {
@@ -90,7 +101,7 @@ export default function Chart() {
             style={{ width: `${percent}%` }}
           >
             <div>{minimumScore}</div>
-            <div>{actualScore}</div>
+            {!same&&<div>{actualScore}</div>}
           </div>
         </div>
         <div className="w-[50%] flex">
@@ -107,9 +118,9 @@ export default function Chart() {
             <div>
               <img src={Icon} />
             </div>
-            <div>
+            {!same&&<div>
               <img src={Icon} />
-            </div>
+            </div>}
           </div>
         </div>
         <div className="w-[50%] flex">
